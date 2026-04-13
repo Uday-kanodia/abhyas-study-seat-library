@@ -1,0 +1,81 @@
+import { useState } from "react";
+import { toast } from "sonner";
+import { z } from "zod";
+
+const schema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  phone: z.string().trim().min(10, "Enter a valid phone number").max(15),
+  email: z.string().trim().email("Enter a valid email").max(255),
+  timing: z.string().min(1, "Select a timing"),
+  message: z.string().trim().max(1000).optional(),
+});
+
+const InquiryForm = () => {
+  const [form, setForm] = useState({ name: "", phone: "", email: "", timing: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = schema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) fieldErrors[err.path[0] as string] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    setErrors({});
+    toast.success("Inquiry submitted successfully! We'll contact you soon.");
+    setForm({ name: "", phone: "", email: "", timing: "", message: "" });
+  };
+
+  const inputClass = "w-full bg-secondary border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all";
+
+  return (
+    <section id="inquiry" className="py-24">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Join Us</p>
+          <h2 className="font-serif text-3xl md:text-5xl font-bold">
+            Admission <span className="gold-text">Inquiry</span>
+          </h2>
+        </div>
+
+        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto glass-card rounded-2xl p-8 md:p-12 space-y-5">
+          <div>
+            <input className={inputClass} placeholder="Your Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div>
+              <input className={inputClass} placeholder="Phone Number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
+            </div>
+            <div>
+              <input className={inputClass} placeholder="Email Address" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
+            </div>
+          </div>
+          <div>
+            <select className={inputClass} value={form.timing} onChange={(e) => setForm({ ...form, timing: e.target.value })}>
+              <option value="">Preferred Timing</option>
+              <option value="morning">Morning (6 AM – 12 PM)</option>
+              <option value="afternoon">Afternoon (12 PM – 6 PM)</option>
+              <option value="night">Night (6 PM – 12 AM)</option>
+            </select>
+            {errors.timing && <p className="text-destructive text-sm mt-1">{errors.timing}</p>}
+          </div>
+          <div>
+            <textarea className={`${inputClass} min-h-[100px] resize-none`} placeholder="Your Message (optional)" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+          </div>
+          <button type="submit" className="w-full gold-gradient text-primary-foreground py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+            Submit Inquiry
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+};
+
+export default InquiryForm;
