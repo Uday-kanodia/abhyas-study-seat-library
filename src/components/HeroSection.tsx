@@ -2,10 +2,10 @@ import heroImg from "@/assets/hero-library.jpg";
 import { Snowflake, Volume2, Armchair, Wifi, Zap } from "lucide-react";
 
 const highlights = [
-  { icon: Snowflake, label: "AC Hall" },
+  { icon: Snowflake, label: "Fully Central AC" },
   { icon: Volume2, label: "Silent Zone" },
-  { icon: Armchair, label: "Individual Seating" },
-  { icon: Wifi, label: "Free WiFi" },
+  { icon: Armchair, label: "Revolving Chairs" },
+  { icon: Wifi, label: "High Speed WiFi" },
   { icon: Zap, label: "Power Backup" },
 ];
 
