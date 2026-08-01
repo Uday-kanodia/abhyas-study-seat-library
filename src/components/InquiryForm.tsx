@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { buildInquiryWhatsAppLink } from "@/lib/inquiryNotify";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -16,6 +18,7 @@ const InquiryForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [waLink, setWaLink] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +48,16 @@ const InquiryForm = () => {
       toast.error("Could not submit your inquiry. Please try again.");
       return;
     }
+
+    const link = buildInquiryWhatsAppLink({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      timing: form.timing,
+      message: form.message,
+    });
+    setWaLink(link);
+    window.open(link, "_blank", "noopener,noreferrer");
 
     toast.success("Inquiry submitted successfully! We'll contact you soon.");
     setForm({ name: "", phone: "", email: "", timing: "", message: "" });
@@ -95,9 +108,19 @@ const InquiryForm = () => {
             {submitting ? "Submitting…" : "Submit Inquiry"}
           </button>
           {submitted && !submitting && (
-            <p className="text-center text-sm text-primary border border-primary/30 bg-primary/5 rounded-lg py-3 px-4">
-              Thank you! Your inquiry has been saved. Our team will reach out to you shortly.
-            </p>
+            <div className="text-center text-sm text-primary border border-primary/30 bg-primary/5 rounded-lg py-4 px-4 space-y-3">
+              <p>Thank you! Your inquiry has been saved. Our team will reach out to you shortly.</p>
+              {waLink && (
+                <a
+                  href={waLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-4 py-2 font-medium hover:bg-primary/10 transition-colors"
+                >
+                  <MessageCircle size={15} /> Notify the library on WhatsApp
+                </a>
+              )}
+            </div>
           )}
         </form>
 
