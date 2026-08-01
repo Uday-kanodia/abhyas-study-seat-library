@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -13,8 +14,10 @@ const schema = z.object({
 const InquiryForm = () => {
   const [form, setForm] = useState({ name: "", phone: "", email: "", timing: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = schema.safeParse(form);
     if (!result.success) {
@@ -26,11 +29,30 @@ const InquiryForm = () => {
       return;
     }
     setErrors({});
+    setSubmitting(true);
+
+    const { error } = await supabase.from("admission_inquiries").insert({
+      name: result.data.name,
+      phone: result.data.phone,
+      email: result.data.email,
+      timing: result.data.timing,
+      message: result.data.message || null,
+    });
+
+    setSubmitting(false);
+
+    if (error) {
+      toast.error("Could not submit your inquiry. Please try again.");
+      return;
+    }
+
     toast.success("Inquiry submitted successfully! We'll contact you soon.");
     setForm({ name: "", phone: "", email: "", timing: "", message: "" });
+    setSubmitted(true);
   };
 
   const inputClass = "w-full bg-secondary border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all";
+
 
   return (
     <section id="inquiry" className="py-24">
@@ -69,10 +91,16 @@ const InquiryForm = () => {
           <div>
             <textarea className={`${inputClass} min-h-[100px] resize-none`} placeholder="Your Message (optional)" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
           </div>
-          <button type="submit" className="w-full gold-gradient text-primary-foreground py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-            Submit Inquiry
+          <button type="submit" disabled={submitting} className="w-full gold-gradient text-primary-foreground py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+            {submitting ? "Submitting…" : "Submit Inquiry"}
           </button>
+          {submitted && !submitting && (
+            <p className="text-center text-sm text-primary border border-primary/30 bg-primary/5 rounded-lg py-3 px-4">
+              Thank you! Your inquiry has been saved. Our team will reach out to you shortly.
+            </p>
+          )}
         </form>
+
       </div>
     </section>
   );
