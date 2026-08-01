@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import GoogleAuthButton from "./GoogleAuthButton";
+
 
 const navLinks = [
   { href: "#home", label: "Home" },
