@@ -69,7 +69,11 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <div className="pt-4">
+            <GoogleAuthButton compact />
+          </div>
         </div>
+
       )}
     </nav>
   );
