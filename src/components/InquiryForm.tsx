@@ -18,6 +18,7 @@ const InquiryForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [waLink, setWaLink] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +48,10 @@ const InquiryForm = () => {
       toast.error("Could not submit your inquiry. Please try again.");
       return;
     }
+
+    const link = buildInquiryWhatsAppLink(result.data);
+    setWaLink(link);
+    window.open(link, "_blank", "noopener,noreferrer");
 
     toast.success("Inquiry submitted successfully! We'll contact you soon.");
     setForm({ name: "", phone: "", email: "", timing: "", message: "" });
