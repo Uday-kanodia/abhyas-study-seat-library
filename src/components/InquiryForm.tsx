@@ -49,7 +49,13 @@ const InquiryForm = () => {
       return;
     }
 
-    const link = buildInquiryWhatsAppLink(result.data);
+    const link = buildInquiryWhatsAppLink({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      timing: form.timing,
+      message: form.message,
+    });
     setWaLink(link);
     window.open(link, "_blank", "noopener,noreferrer");
 
