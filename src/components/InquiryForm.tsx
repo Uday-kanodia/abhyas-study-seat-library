@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { MessageCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { buildInquiryWhatsAppLink } from "@/lib/inquiryNotify";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
