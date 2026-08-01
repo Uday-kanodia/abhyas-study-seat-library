@@ -45,6 +45,7 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <GoogleAuthButton />
         </div>
 
         <button
@@ -54,6 +55,7 @@ const Navbar = () => {
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+
 
       {open && (
         <div className="md:hidden glass-card mt-2 mx-4 rounded-lg p-4 animate-fade-in">
