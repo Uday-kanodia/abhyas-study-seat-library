@@ -108,9 +108,19 @@ const InquiryForm = () => {
             {submitting ? "Submitting…" : "Submit Inquiry"}
           </button>
           {submitted && !submitting && (
-            <p className="text-center text-sm text-primary border border-primary/30 bg-primary/5 rounded-lg py-3 px-4">
-              Thank you! Your inquiry has been saved. Our team will reach out to you shortly.
-            </p>
+            <div className="text-center text-sm text-primary border border-primary/30 bg-primary/5 rounded-lg py-4 px-4 space-y-3">
+              <p>Thank you! Your inquiry has been saved. Our team will reach out to you shortly.</p>
+              {waLink && (
+                <a
+                  href={waLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg border border-primary/40 px-4 py-2 font-medium hover:bg-primary/10 transition-colors"
+                >
+                  <MessageCircle size={15} /> Notify the library on WhatsApp
+                </a>
+              )}
+            </div>
           )}
         </form>
 
