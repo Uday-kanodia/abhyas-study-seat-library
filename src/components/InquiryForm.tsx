@@ -91,10 +91,16 @@ const InquiryForm = () => {
           <div>
             <textarea className={`${inputClass} min-h-[100px] resize-none`} placeholder="Your Message (optional)" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
           </div>
-          <button type="submit" className="w-full gold-gradient text-primary-foreground py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity">
-            Submit Inquiry
+          <button type="submit" disabled={submitting} className="w-full gold-gradient text-primary-foreground py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-60">
+            {submitting ? "Submitting…" : "Submit Inquiry"}
           </button>
+          {submitted && !submitting && (
+            <p className="text-center text-sm text-primary border border-primary/30 bg-primary/5 rounded-lg py-3 px-4">
+              Thank you! Your inquiry has been saved. Our team will reach out to you shortly.
+            </p>
+          )}
         </form>
+
       </div>
     </section>
   );
