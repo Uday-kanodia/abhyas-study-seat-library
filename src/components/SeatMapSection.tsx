@@ -48,6 +48,7 @@ const totalSeats = 74;
 
 const SeatMapSection = () => {
   const [selected, setSelected] = useState<number | null>(null);
+  const [view, setView] = useState<"interactive" | "plan">("interactive");
 
   const handleSelect = (seat: number) => {
     if (occupiedSeats.has(seat)) return;
@@ -65,19 +66,51 @@ const SeatMapSection = () => {
   return (
     <section id="seat-map" className="py-24 bg-card/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Seating Arrangement</p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold mb-4">
             Choose Your <span className="gold-text">Seat</span>
           </h2>
           <p className="text-foreground/50 text-sm max-w-xl mx-auto">
-            {totalSeats} individual study desks laid out exactly as in the library. Pick an available
-            seat to reserve it with your admission inquiry.
+            {totalSeats} individual study desks, laid out exactly as in the library floor plan. Pick an
+            available seat to reserve it with your admission inquiry.
           </p>
         </div>
 
+        <div className="flex justify-center mb-10">
+          <div className="glass-card rounded-full p-1 inline-flex gap-1">
+            {([
+              { key: "interactive", label: "Interactive Map" },
+              { key: "plan", label: "Official Floor Plan" },
+            ] as const).map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setView(t.key)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
+                  view === t.key ? "gold-gradient text-primary-foreground" : "text-foreground/60 hover:text-foreground"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto">
+          {view === "plan" ? (
+            <img
+              src={floorPlan.url}
+              alt="Abhyas Reading Library official seating floor plan with 74 numbered study desks"
+              loading="lazy"
+              className="w-full rounded-xl"
+            />
+          ) : (
           <div className="min-w-[640px] space-y-7">
+            <div className="flex justify-center gap-3 text-[10px] uppercase tracking-widest text-foreground/35">
+              <span className="rounded border border-border px-3 py-1">Washroom</span>
+              <span className="rounded border border-border px-3 py-1">Lunch Room</span>
+              <span className="rounded border border-border px-3 py-1">Newspaper</span>
+            </div>
             {rows.map((row, i) => (
               <div key={row.label} className="flex justify-center gap-10">
                 {row.groups.map((group, gi) => (
@@ -99,6 +132,8 @@ const SeatMapSection = () => {
               </div>
             ))}
           </div>
+          )}
+
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-foreground/50">
             <span className="flex items-center gap-2">
