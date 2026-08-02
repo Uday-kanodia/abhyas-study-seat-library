@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -48,7 +48,19 @@ const GallerySection = () => {
             </button>
           ))}
         </div>
+
+        <div className="text-center mt-10">
+          <a
+            href="https://www.google.com/maps/contrib/113830314756941663098/photos/@23.1177738,72.575052,17z/data=!4m3!8m2!3m1!1e1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-primary/30 px-6 py-3 text-sm font-medium text-primary hover:bg-primary/10 transition-colors"
+          >
+            <ExternalLink size={15} /> View all photos on Google Maps
+          </a>
+        </div>
       </div>
+
 
       {lightbox !== null && (
         <div className="fixed inset-0 z-[100] bg-background/95 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
