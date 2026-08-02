@@ -135,17 +135,20 @@ const SeatMapSection = () => {
           )}
 
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-foreground/50">
-            <span className="flex items-center gap-2">
-              <span className="h-3.5 w-3.5 rounded border border-primary/25 bg-background" /> Available
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="h-3.5 w-3.5 rounded gold-gradient" /> Selected
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="h-3.5 w-3.5 rounded border border-border bg-secondary" /> Occupied
-            </span>
-          </div>
+          {view === "interactive" && (
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-foreground/50">
+              <span className="flex items-center gap-2">
+                <span className="h-3.5 w-3.5 rounded border border-primary/25 bg-background" /> Available
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="h-3.5 w-3.5 rounded gold-gradient" /> Selected
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="h-3.5 w-3.5 rounded border border-border bg-secondary" /> Occupied
+              </span>
+            </div>
+          )}
+
 
           <div className="mt-8 text-center">
             <p className="text-foreground/40 text-sm mb-4">
