@@ -5,7 +5,6 @@ import {
   PlugZap,
   Pin,
   Snowflake,
-  KeyRound,
   Coffee,
   Newspaper,
   Camera,
