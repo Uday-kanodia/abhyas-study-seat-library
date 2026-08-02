@@ -42,12 +42,16 @@ const InquiryForm = () => {
     setErrors({});
     setSubmitting(true);
 
+    const fullMessage = [seat ? `Preferred seat: ${seat}` : null, result.data.message || null]
+      .filter(Boolean)
+      .join(" — ");
+
     const { error } = await supabase.from("admission_inquiries").insert({
       name: result.data.name,
       phone: result.data.phone,
       email: result.data.email,
       timing: result.data.timing,
-      message: result.data.message || null,
+      message: fullMessage || null,
     });
 
     setSubmitting(false);
@@ -62,8 +66,9 @@ const InquiryForm = () => {
       phone: form.phone,
       email: form.email,
       timing: form.timing,
-      message: form.message,
+      message: fullMessage,
     });
+
     setWaLink(link);
     window.open(link, "_blank", "noopener,noreferrer");
 
