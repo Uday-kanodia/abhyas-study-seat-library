@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { MessageCircle } from "lucide-react";
@@ -19,6 +19,14 @@ const InquiryForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [waLink, setWaLink] = useState<string | null>(null);
+  const [seat, setSeat] = useState<number | null>(null);
+
+  useEffect(() => {
+    const handler = (e: Event) => setSeat((e as CustomEvent<number>).detail);
+    window.addEventListener("seat-selected", handler);
+    return () => window.removeEventListener("seat-selected", handler);
+  }, []);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
