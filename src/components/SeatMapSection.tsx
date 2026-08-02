@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import floorPlan from "@/assets/seating-floorplan.jpg.asset.json";
+import floorPlan from "@/assets/seating-floorplan.jpg";
 
 
 // Seat layout as per the library floor plan (74 seats)
