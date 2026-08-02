@@ -4,6 +4,8 @@ import AboutSection from "@/components/AboutSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import GallerySection from "@/components/GallerySection";
 import SeatAvailability from "@/components/SeatAvailability";
+import SeatMapSection from "@/components/SeatMapSection";
+
 import PricingSection from "@/components/PricingSection";
 import RulesSection from "@/components/RulesSection";
 import InquiryForm from "@/components/InquiryForm";
@@ -22,6 +24,8 @@ const Index = () => {
       <FacilitiesSection />
       <GallerySection />
       <SeatAvailability />
+      <SeatMapSection />
+
       <PricingSection />
       <RulesSection />
       <InquiryForm />

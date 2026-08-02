@@ -1,0 +1,130 @@
+import { useState } from "react";
+import { toast } from "sonner";
+
+// Seat layout as per the library floor plan (74 seats)
+const rows: { label: string; groups: number[][] }[] = [
+  { label: "Wall Row", groups: [[74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61]] },
+  {
+    label: "Block A",
+    groups: [
+      [49, 50, 51, 52, 53, 54],
+      [55, 56, 57, 58, 59, 60],
+    ],
+  },
+  {
+    label: "Block A (back)",
+    groups: [
+      [48, 47, 46, 45, 44, 43],
+      [42, 41, 40, 39, 38, 37],
+    ],
+  },
+  {
+    label: "Block B",
+    groups: [
+      [25, 26, 27, 28, 29, 30],
+      [31, 32, 33, 34, 35, 36],
+    ],
+  },
+  {
+    label: "Block B (back)",
+    groups: [
+      [24, 23, 22, 21, 20, 19],
+      [18, 17, 16, 15, 14, 13],
+    ],
+  },
+  { label: "Entrance Row", groups: [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]] },
+];
+
+// Currently occupied seats (update as admissions change)
+const occupiedSeats = new Set([
+  1, 2, 4, 5, 7, 9, 12, 13, 14, 16, 18, 19, 21, 22, 25, 26, 27, 29, 31, 33,
+  34, 37, 38, 40, 43, 44, 45, 47, 49, 50, 52, 55, 56, 58, 61, 62, 64, 65, 67,
+  68, 70, 71, 73,
+]);
+
+const totalSeats = 74;
+
+const SeatMapSection = () => {
+  const [selected, setSelected] = useState<number | null>(null);
+
+  const handleSelect = (seat: number) => {
+    if (occupiedSeats.has(seat)) return;
+    setSelected(seat);
+    window.dispatchEvent(new CustomEvent("seat-selected", { detail: seat }));
+    toast.success(`Seat ${seat} selected — continue with your inquiry below.`);
+  };
+
+  const seatClass = (seat: number) => {
+    if (occupiedSeats.has(seat)) return "bg-secondary text-foreground/25 cursor-not-allowed border-border";
+    if (selected === seat) return "gold-gradient text-primary-foreground border-transparent scale-110";
+    return "bg-background text-foreground/70 border-primary/25 hover:border-primary hover:text-primary";
+  };
+
+  return (
+    <section id="seat-map" className="py-24 bg-card/50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Seating Arrangement</p>
+          <h2 className="font-serif text-3xl md:text-5xl font-bold mb-4">
+            Choose Your <span className="gold-text">Seat</span>
+          </h2>
+          <p className="text-foreground/50 text-sm max-w-xl mx-auto">
+            {totalSeats} individual study desks laid out exactly as in the library. Pick an available
+            seat to reserve it with your admission inquiry.
+          </p>
+        </div>
+
+        <div className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto">
+          <div className="min-w-[640px] space-y-7">
+            {rows.map((row, i) => (
+              <div key={row.label} className="flex justify-center gap-10">
+                {row.groups.map((group, gi) => (
+                  <div key={gi} className="flex gap-1.5">
+                    {group.map((seat) => (
+                      <button
+                        key={seat}
+                        type="button"
+                        onClick={() => handleSelect(seat)}
+                        aria-label={`Seat ${seat}${occupiedSeats.has(seat) ? " (occupied)" : " (available)"}`}
+                        className={`h-9 w-9 shrink-0 rounded-md border text-xs font-semibold transition-all duration-300 ${seatClass(seat)}`}
+                      >
+                        {seat}
+                      </button>
+                    ))}
+                  </div>
+                ))}
+                {i === 0 && <span className="sr-only">Washroom side</span>}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-xs text-foreground/50">
+            <span className="flex items-center gap-2">
+              <span className="h-3.5 w-3.5 rounded border border-primary/25 bg-background" /> Available
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-3.5 w-3.5 rounded gold-gradient" /> Selected
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-3.5 w-3.5 rounded border border-border bg-secondary" /> Occupied
+            </span>
+          </div>
+
+          <div className="mt-8 text-center">
+            <p className="text-foreground/40 text-sm mb-4">
+              {selected ? `Seat ${selected} selected` : "No seat selected yet"} · Reserved seat plans start at ₹2,000/month
+            </p>
+            <a
+              href="#inquiry"
+              className="inline-block gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+            >
+              Reserve This Seat
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SeatMapSection;

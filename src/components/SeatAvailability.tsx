@@ -1,8 +1,9 @@
 const SeatAvailability = () => {
-  const total = 120;
-  const occupied = 95;
+  const total = 74;
+  const occupied = 43;
   const available = total - occupied;
   const percent = Math.round((occupied / total) * 100);
+
 
   return (
     <section id="seats" className="py-24">
@@ -39,12 +40,13 @@ const SeatAvailability = () => {
 
           <div className="text-center">
             <a
-              href="#inquiry"
+              href="#seat-map"
               className="inline-block gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
             >
-              Reserve Your Seat Now
+              View Seating Arrangement
             </a>
           </div>
+
         </div>
       </div>
     </section>
