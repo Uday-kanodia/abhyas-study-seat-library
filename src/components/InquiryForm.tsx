@@ -107,13 +107,27 @@ const InquiryForm = () => {
           </div>
           <div>
             <select className={inputClass} value={form.timing} onChange={(e) => setForm({ ...form, timing: e.target.value })}>
-              <option value="">Preferred Timing</option>
-              <option value="morning">Morning (6 AM – 12 PM)</option>
-              <option value="afternoon">Afternoon (12 PM – 6 PM)</option>
-              <option value="night">Night (6 PM – 12 AM)</option>
+              <option value="">Preferred Timing / Plan</option>
+              <option value="18h-reserved">18 Hours Reserved Seat (7 AM – 1 AM)</option>
+              <option value="18h-unreserved">18 Hours Unreserved Seat (7 AM – 1 AM)</option>
+              <option value="6h-morning">6 Hours Shift (7 AM – 1 PM)</option>
+              <option value="6h-afternoon">6 Hours Shift (1 PM – 7 PM)</option>
+              <option value="6h-night">6 Hours Shift (7 PM – 1 AM)</option>
+              <option value="9h-evening">9 Hours Shift (4 PM – 1 AM)</option>
+              <option value="per-day">Per Day / Demo (₹100)</option>
             </select>
             {errors.timing && <p className="text-destructive text-sm mt-1">{errors.timing}</p>}
           </div>
+          <div className="flex items-center justify-between rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm">
+            <span className="text-foreground/60">
+              {seat ? `Selected seat: ` : "No seat selected"}
+              {seat && <span className="text-primary font-semibold">{seat}</span>}
+            </span>
+            <a href="#seat-map" className="text-primary hover:underline">
+              {seat ? "Change seat" : "Pick a seat"}
+            </a>
+          </div>
+
           <div>
             <textarea className={`${inputClass} min-h-[100px] resize-none`} placeholder="Your Message (optional)" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
           </div>
