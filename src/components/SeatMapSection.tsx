@@ -99,7 +99,7 @@ const SeatMapSection = () => {
         <div className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto">
           {view === "plan" ? (
             <img
-              src={floorPlan.url}
+              src={floorPlan}
               alt="Abhyas Reading Library official seating floor plan with 74 numbered study desks"
               loading="lazy"
               className="w-full rounded-xl"
