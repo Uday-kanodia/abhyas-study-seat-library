@@ -1,4 +1,6 @@
-import heroImg from "@/assets/hero-library.jpg";
+import heroImg from "@/assets/unnamed.webp.asset.json";
+import logo from "@/assets/unnamed_7.webp.asset.json";
+
 import { Snowflake, Volume2, Armchair, Wifi, Zap } from "lucide-react";
 
 const highlights = [

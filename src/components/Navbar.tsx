@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import GoogleAuthButton from "./GoogleAuthButton";
+import logo from "@/assets/unnamed_7.webp.asset.json";
 
 
 const navLinks = [
@@ -31,7 +32,8 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <a href="#home" className="font-serif text-xl font-bold gold-text">
+        <a href="#home" className="flex items-center gap-2 font-serif text-xl font-bold gold-text">
+          <img src={logo.url} alt="Abhyas Reading Library logo" className="h-9 w-9 object-contain" />
           Abhyas
         </a>
 
