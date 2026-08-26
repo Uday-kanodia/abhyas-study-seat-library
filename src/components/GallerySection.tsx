@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { X, ExternalLink } from "lucide-react";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
+import photo1 from "@/assets/unnamed_3.webp.asset.json";
+import photo2 from "@/assets/unnamed.webp.asset.json";
+import photo3 from "@/assets/unnamed_2.webp.asset.json";
+import photo4 from "@/assets/unnamed_5.webp.asset.json";
+import photo5 from "@/assets/unnamed_1.webp.asset.json";
+import photo6 from "@/assets/unnamed_4.webp.asset.json";
+import photo7 from "@/assets/unnamed_6.webp.asset.json";
 
 const images = [
-  { src: gallery1, alt: "Individual study cubicles" },
-  { src: gallery2, alt: "Reading lounge area" },
-  { src: gallery3, alt: "Reception and entrance" },
-  { src: gallery4, alt: "Main study hall" },
+  { src: photo1.url, alt: "Library reception and entrance" },
+  { src: photo2.url, alt: "Main study hall with numbered individual desks" },
+  { src: photo3.url, alt: "Rows of partitioned study cubicles with personal lighting" },
+  { src: photo4.url, alt: "Wide view of the air-conditioned study hall" },
+  { src: photo5.url, alt: "Wall-side cubicles with push-back revolving chairs" },
+  { src: photo6.url, alt: "Aisle between study desks with personal charging points" },
+  { src: photo7.url, alt: "Individual seating arrangement inside the reading hall" },
 ];
 
 const GallerySection = () => {
@@ -36,12 +42,10 @@ const GallerySection = () => {
                 src={img.src}
                 alt={img.alt}
                 loading="lazy"
-                width={800}
-                height={600}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-500 flex items-center justify-center">
-                <span className="text-foreground opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium">
+              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-500 flex items-center justify-center p-3">
+                <span className="text-foreground opacity-0 group-hover:opacity-100 transition-opacity text-sm font-medium text-center">
                   {img.alt}
                 </span>
               </div>
