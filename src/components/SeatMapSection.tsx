@@ -69,7 +69,7 @@ const SeatMapSection = () => {
   return (
     <section id="seat-map" className="py-24 bg-card/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
+        <Reveal className="text-center mb-8">
           <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Seating Arrangement</p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold mb-4">
             Choose Your <span className="gold-text">Seat</span>
@@ -78,7 +78,8 @@ const SeatMapSection = () => {
             {totalSeats} individual study desks, laid out exactly as in the library floor plan. Pick an
             available seat to reserve it with your admission inquiry.
           </p>
-        </div>
+        </Reveal>
+
 
         <div className="flex justify-center mb-10">
           <div className="glass-card rounded-full p-1 inline-flex gap-1">
