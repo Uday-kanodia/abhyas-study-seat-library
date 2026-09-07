@@ -100,7 +100,13 @@ const SeatMapSection = () => {
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto"
+        >
           {view === "plan" ? (
             <img
               src={floorPlan}
@@ -116,27 +122,37 @@ const SeatMapSection = () => {
               <span className="rounded border border-border px-3 py-1">Newspaper</span>
             </div>
             {rows.map((row, i) => (
-              <div key={row.label} className="flex justify-center gap-10">
+              <motion.div
+                key={row.label}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.45, delay: i * 0.07 }}
+                className="flex justify-center gap-10"
+              >
                 {row.groups.map((group, gi) => (
                   <div key={gi} className="flex gap-1.5">
                     {group.map((seat) => (
-                      <button
+                      <motion.button
                         key={seat}
                         type="button"
                         onClick={() => handleSelect(seat)}
+                        whileHover={occupiedSeats.has(seat) ? undefined : { y: -4, scale: 1.08 }}
+                        whileTap={occupiedSeats.has(seat) ? undefined : { scale: 0.94 }}
                         aria-label={`Seat ${seat}${occupiedSeats.has(seat) ? " (occupied)" : " (available)"}`}
-                        className={`h-9 w-9 shrink-0 rounded-md border text-xs font-semibold transition-all duration-300 ${seatClass(seat)}`}
+                        className={`h-9 w-9 shrink-0 rounded-md border text-xs font-semibold transition-colors duration-300 ${seatClass(seat)}`}
                       >
                         {seat}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 ))}
                 {i === 0 && <span className="sr-only">Washroom side</span>}
-              </div>
+              </motion.div>
             ))}
           </div>
           )}
+
 
 
           {view === "interactive" && (
