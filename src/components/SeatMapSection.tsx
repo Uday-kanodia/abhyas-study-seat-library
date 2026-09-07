@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
 import floorPlan from "@/assets/seating-floorplan.jpg";
+
 
 
 // Seat layout as per the library floor plan (74 seats)
