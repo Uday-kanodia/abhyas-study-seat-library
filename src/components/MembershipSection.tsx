@@ -15,7 +15,7 @@ import {
   User as UserIcon,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { clearStudentSession, getStudentSession, STUDENT_SESSION_EVENT, setStudentSession } from "@/lib/studentSession";
+import { clearStudentSession, getStudentSession, STUDENT_SESSION_EVENT } from "@/lib/studentSession";
 
 
 type Membership = {
