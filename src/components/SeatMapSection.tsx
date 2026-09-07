@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
 import floorPlan from "@/assets/seating-floorplan.jpg";
+
 
 
 // Seat layout as per the library floor plan (74 seats)
@@ -66,7 +69,7 @@ const SeatMapSection = () => {
   return (
     <section id="seat-map" className="py-24 bg-card/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
+        <Reveal className="text-center mb-8">
           <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Seating Arrangement</p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold mb-4">
             Choose Your <span className="gold-text">Seat</span>
@@ -75,7 +78,8 @@ const SeatMapSection = () => {
             {totalSeats} individual study desks, laid out exactly as in the library floor plan. Pick an
             available seat to reserve it with your admission inquiry.
           </p>
-        </div>
+        </Reveal>
+
 
         <div className="flex justify-center mb-10">
           <div className="glass-card rounded-full p-1 inline-flex gap-1">
@@ -96,7 +100,13 @@ const SeatMapSection = () => {
           </div>
         </div>
 
-        <div className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="glass-card rounded-2xl p-5 md:p-10 max-w-5xl mx-auto overflow-x-auto"
+        >
           {view === "plan" ? (
             <img
               src={floorPlan}
@@ -112,27 +122,37 @@ const SeatMapSection = () => {
               <span className="rounded border border-border px-3 py-1">Newspaper</span>
             </div>
             {rows.map((row, i) => (
-              <div key={row.label} className="flex justify-center gap-10">
+              <motion.div
+                key={row.label}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.45, delay: i * 0.07 }}
+                className="flex justify-center gap-10"
+              >
                 {row.groups.map((group, gi) => (
                   <div key={gi} className="flex gap-1.5">
                     {group.map((seat) => (
-                      <button
+                      <motion.button
                         key={seat}
                         type="button"
                         onClick={() => handleSelect(seat)}
+                        whileHover={occupiedSeats.has(seat) ? undefined : { y: -4, scale: 1.08 }}
+                        whileTap={occupiedSeats.has(seat) ? undefined : { scale: 0.94 }}
                         aria-label={`Seat ${seat}${occupiedSeats.has(seat) ? " (occupied)" : " (available)"}`}
-                        className={`h-9 w-9 shrink-0 rounded-md border text-xs font-semibold transition-all duration-300 ${seatClass(seat)}`}
+                        className={`h-9 w-9 shrink-0 rounded-md border text-xs font-semibold transition-colors duration-300 ${seatClass(seat)}`}
                       >
                         {seat}
-                      </button>
+                      </motion.button>
                     ))}
                   </div>
                 ))}
                 {i === 0 && <span className="sr-only">Washroom side</span>}
-              </div>
+              </motion.div>
             ))}
           </div>
           )}
+
 
 
           {view === "interactive" && (
@@ -154,14 +174,17 @@ const SeatMapSection = () => {
             <p className="text-foreground/40 text-sm mb-4">
               {selected ? `Seat ${selected} selected` : "No seat selected yet"} · Reserved seat plans start at ₹2,000/month
             </p>
-            <a
+            <motion.a
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.97 }}
               href="#inquiry"
-              className="inline-block gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+              className="inline-block gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold"
             >
               Reserve This Seat
-            </a>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );

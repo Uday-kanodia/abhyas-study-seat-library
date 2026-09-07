@@ -15,6 +15,8 @@ import {
   User as UserIcon,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { clearStudentSession, getStudentSession, STUDENT_SESSION_EVENT } from "@/lib/studentSession";
+
 
 type Membership = {
   id: string;
@@ -131,12 +133,38 @@ const MembershipSection = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.email]);
 
+  // Auto-load for a logged-in student portal session
+  useEffect(() => {
+    const session = getStudentSession();
+    if (session?.query) {
+      setQuery(session.query);
+      lookup(session.query);
+    }
+    const onSession = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { query?: string } | null;
+      if (detail?.query) {
+        setQuery(detail.query);
+        lookup(detail.query);
+      } else {
+        setResults(null);
+        setNotFound(false);
+        setError(null);
+        setQuery("");
+      }
+    };
+    window.addEventListener(STUDENT_SESSION_EVENT, onSession);
+    return () => window.removeEventListener(STUDENT_SESSION_EVENT, onSession);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const reset = () => {
+    clearStudentSession();
     setResults(null);
     setNotFound(false);
     setError(null);
     setQuery("");
   };
+
 
   const inputClass =
     "w-full bg-secondary border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all";

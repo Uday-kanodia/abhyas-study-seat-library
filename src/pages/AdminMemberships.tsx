@@ -14,6 +14,8 @@ import {
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import GoogleAuthButton from "@/components/GoogleAuthButton";
+import AdminNav from "@/components/AdminNav";
+
 
 type Membership = {
   id: string;
@@ -238,6 +240,9 @@ const AdminMemberships = () => {
           </div>
           <GoogleAuthButton />
         </div>
+
+        <AdminNav />
+
 
         {!user && (
           <div className="glass-card rounded-2xl p-10 text-center max-w-lg mx-auto">

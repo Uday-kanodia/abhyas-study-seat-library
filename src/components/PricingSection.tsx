@@ -1,5 +1,8 @@
 import { Check, Info } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
+
 
 type Branch = "nakshtra" | "sarju";
 
@@ -100,13 +103,14 @@ const PricingSection = () => {
   return (
     <section id="pricing" className="py-24 bg-card/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <Reveal className="text-center mb-12">
           <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">Plans</p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold mb-4">
             Transparent <span className="gold-text">Pricing</span>
           </h2>
           <p className="text-foreground/40 text-sm">Per Day: ₹100 · Demo: ₹100</p>
-        </div>
+        </Reveal>
+
 
         {/* Branch Toggle */}
         <div className="flex justify-center mb-8">
@@ -149,10 +153,15 @@ const PricingSection = () => {
 
         {/* Pricing Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-          {pricing.map((plan) => (
-            <div
+          {pricing.map((plan, i) => (
+            <motion.div
               key={plan.plan}
-              className={`rounded-2xl p-7 transition-all duration-500 hover:-translate-y-1 relative ${
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -8 }}
+              className={`rounded-2xl p-7 relative hover:shadow-xl transition-shadow duration-500 ${
                 plan.popular ? "gold-gradient text-primary-foreground" : "glass-card"
               }`}
             >
@@ -181,9 +190,10 @@ const PricingSection = () => {
               >
                 Book Now
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
+
 
         <p className="text-center text-foreground/30 text-sm mt-8">
           <Info size={14} className="inline mr-1 -mt-0.5" />
