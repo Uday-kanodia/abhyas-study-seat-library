@@ -47,6 +47,63 @@ export type Database = {
         }
         Relationships: []
       }
+      memberships: {
+        Row: {
+          branch: string
+          created_at: string
+          email: string
+          expiry_date: string
+          fee_paid: number
+          fee_total: number
+          id: string
+          is_reserved: boolean
+          name: string
+          notes: string | null
+          phone: string
+          plan_type: string
+          seat_number: number | null
+          shift_timings: string | null
+          start_date: string
+          updated_at: string
+        }
+        Insert: {
+          branch: string
+          created_at?: string
+          email: string
+          expiry_date: string
+          fee_paid?: number
+          fee_total?: number
+          id?: string
+          is_reserved?: boolean
+          name: string
+          notes?: string | null
+          phone: string
+          plan_type: string
+          seat_number?: number | null
+          shift_timings?: string | null
+          start_date?: string
+          updated_at?: string
+        }
+        Update: {
+          branch?: string
+          created_at?: string
+          email?: string
+          expiry_date?: string
+          fee_paid?: number
+          fee_total?: number
+          id?: string
+          is_reserved?: boolean
+          name?: string
+          notes?: string | null
+          phone?: string
+          plan_type?: string
+          seat_number?: number | null
+          shift_timings?: string | null
+          start_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
