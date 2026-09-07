@@ -93,7 +93,15 @@ const Admin = () => {
               Admission <span className="gold-text">Inquiries</span>
             </h1>
           </div>
-          <GoogleAuthButton />
+          <div className="flex items-center gap-3">
+            <Link
+              to="/admin/members"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-4 py-3 text-sm hover:border-primary/50 hover:text-primary transition-colors"
+            >
+              Manage Members
+            </Link>
+            <GoogleAuthButton />
+          </div>
         </div>
 
         {!user && (
