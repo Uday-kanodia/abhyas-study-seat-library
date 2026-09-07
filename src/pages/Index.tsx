@@ -9,6 +9,7 @@ import SeatMapSection from "@/components/SeatMapSection";
 import PricingSection from "@/components/PricingSection";
 import RulesSection from "@/components/RulesSection";
 import InquiryForm from "@/components/InquiryForm";
+import MembershipSection from "@/components/MembershipSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
