@@ -12,6 +12,7 @@ const navLinks = [
   { href: "#pricing", label: "Pricing" },
   { href: "#rules", label: "Rules" },
   { href: "#inquiry", label: "Inquiry" },
+  { href: "#membership", label: "My Membership" },
   { href: "#contact", label: "Contact" },
 ];
 
