@@ -1,4 +1,7 @@
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
 import {
+
   Armchair,
   Eye,
   Lightbulb,
@@ -37,27 +40,33 @@ const FacilitiesSection = () => {
   return (
     <section id="facilities" className="py-24 bg-card/50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <p className="text-primary uppercase tracking-[0.2em] text-sm mb-3">What We Offer</p>
           <h2 className="font-serif text-3xl md:text-5xl font-bold">
             Available <span className="gold-text">Facilities</span>
           </h2>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
-          {facilities.map((f) => (
-            <div
+          {facilities.map((f, i) => (
+            <motion.div
               key={f.label}
-              className="glass-card rounded-xl p-5 text-center hover:gold-shadow transition-all duration-500 group"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: (i % 5) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6 }}
+              className="glass-card rounded-xl p-5 text-center hover:gold-shadow transition-shadow duration-500 group"
             >
               <div className="w-11 h-11 rounded-full gold-gradient flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
                 <f.icon size={20} className="text-primary-foreground" />
               </div>
               <h3 className="text-sm font-semibold mb-1">{f.label}</h3>
               <p className="text-foreground/40 text-xs leading-relaxed">{f.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );
