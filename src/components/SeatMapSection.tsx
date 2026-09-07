@@ -174,14 +174,17 @@ const SeatMapSection = () => {
             <p className="text-foreground/40 text-sm mb-4">
               {selected ? `Seat ${selected} selected` : "No seat selected yet"} · Reserved seat plans start at ₹2,000/month
             </p>
-            <a
+            <motion.a
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.97 }}
               href="#inquiry"
-              className="inline-block gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+              className="inline-block gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold"
             >
               Reserve This Seat
-            </a>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );
