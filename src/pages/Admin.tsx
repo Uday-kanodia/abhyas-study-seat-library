@@ -5,6 +5,8 @@ import { ArrowLeft, MessageCircle, Phone, RefreshCw, Trash2 } from "lucide-react
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import GoogleAuthButton from "@/components/GoogleAuthButton";
+import AdminNav from "@/components/AdminNav";
+
 import { buildApplicantWhatsAppLink } from "@/lib/inquiryNotify";
 
 type Inquiry = {
@@ -94,15 +96,12 @@ const Admin = () => {
             </h1>
           </div>
           <div className="flex items-center gap-3">
-            <Link
-              to="/admin/members"
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-secondary px-4 py-3 text-sm hover:border-primary/50 hover:text-primary transition-colors"
-            >
-              Manage Members
-            </Link>
             <GoogleAuthButton />
           </div>
         </div>
+
+        <AdminNav />
+
 
         {!user && (
           <div className="glass-card rounded-2xl p-10 text-center max-w-lg mx-auto">
