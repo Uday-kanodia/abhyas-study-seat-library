@@ -1,5 +1,8 @@
 import { Check, Info } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
+
 
 type Branch = "nakshtra" | "sarju";
 

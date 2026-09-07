@@ -1,4 +1,6 @@
+import { motion } from "framer-motion";
 import heroImg from "@/assets/unnamed.webp.asset.json";
+
 import logo from "@/assets/unnamed_7.webp.asset.json";
 
 import { Snowflake, Volume2, Armchair, Wifi, Zap } from "lucide-react";
@@ -20,41 +22,79 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <img
+        <motion.img
           src={logo.url}
           alt="Abhyas Reading Library logo"
-          className="h-20 w-20 md:h-24 md:w-24 mx-auto mb-6 object-contain animate-fade-in"
+          className="h-20 w-20 md:h-24 md:w-24 mx-auto mb-6 object-contain"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         />
-        <p className="text-primary/80 uppercase tracking-[0.3em] text-sm mb-4 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        <motion.p
+          className="text-primary/80 uppercase tracking-[0.3em] text-sm mb-4"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
           Chandkheda, Ahmedabad
-        </p>
-        <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up">
+        </motion.p>
+        <motion.h1
+          className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        >
           Where Preparation
           <br />
           <span className="gold-text">Meets Comfort</span>
-        </h1>
-        <p className="text-foreground/60 text-lg md:text-xl max-w-2xl mx-auto mb-10 animate-fade-in" style={{ animationDelay: "0.4s" }}>
+        </motion.h1>
+        <motion.p
+          className="text-foreground/60 text-lg md:text-xl max-w-2xl mx-auto mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           Your journey to success starts with the right environment.
-        </p>
+        </motion.p>
 
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in" style={{ animationDelay: "0.6s" }}>
-          <a href="#seats" className="gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-opacity">
+        <motion.div
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
+        >
+          <motion.a
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.97 }}
+            href="#seats"
+            className="gold-gradient text-primary-foreground px-8 py-4 rounded-lg font-semibold"
+          >
             Book a Seat
-          </a>
-          <a href="#inquiry" className="border border-primary/30 text-foreground px-8 py-4 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -4 }}
+            whileTap={{ scale: 0.97 }}
+            href="#inquiry"
+            className="border border-primary/30 text-foreground px-8 py-4 rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+          >
             Admission Inquiry
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-10 animate-fade-in" style={{ animationDelay: "0.8s" }}>
+        <motion.div
+          className="flex flex-wrap justify-center gap-6 md:gap-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.75 }}
+        >
           {highlights.map((item) => (
             <div key={item.label} className="flex items-center gap-2 text-foreground/50">
               <item.icon size={18} className="text-primary" />
               <span className="text-sm">{item.label}</span>
             </div>
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </section>
   );
