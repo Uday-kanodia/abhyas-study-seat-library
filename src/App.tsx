@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Admin from "./pages/Admin.tsx";
 import AdminMemberships from "./pages/AdminMemberships.tsx";
 import AdminSeats from "./pages/AdminSeats.tsx";
+import AdminStaff from "./pages/AdminStaff.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ const App = () => (
               </RequireAdmin>
             }
           />
+          <Route path="/admin/staff" element={<RequireAdmin><AdminStaff /></RequireAdmin>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

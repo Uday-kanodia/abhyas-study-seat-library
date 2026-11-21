@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Armchair, MessageSquare, Users } from "lucide-react";
+import { Armchair, ShieldCheck, MessageSquare, Users } from "lucide-react";
 
 const tabs = [
   { to: "/admin", label: "Inquiries", icon: MessageSquare },
   { to: "/admin/members", label: "Members", icon: Users },
   { to: "/admin/seats", label: "Seat Tracking", icon: Armchair },
+  { to: "/admin/staff", label: "Staff Access", icon: ShieldCheck },
 ];
 
 const AdminNav = () => {
