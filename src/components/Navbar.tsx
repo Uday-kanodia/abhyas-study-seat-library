@@ -7,18 +7,6 @@ import AuthDialog from "./AuthDialog";
 import { clearStudentSession, getStudentSession, STUDENT_SESSION_EVENT, type StudentSession } from "@/lib/studentSession";
 import logo from "@/assets/unnamed_7.webp.asset.json";
 
-const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#seats", label: "Availability" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#rules", label: "Rules" },
-  { href: "#inquiry", label: "Inquiry" },
-  { href: "#membership", label: "My Membership" },
-  { href: "#contact", label: "Contact" },
-];
-
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -100,15 +88,6 @@ const Navbar = () => {
           </a>
 
           <div className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-foreground/70 hover:text-primary transition-colors duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
             {account()}
           </div>
 
@@ -119,17 +98,7 @@ const Navbar = () => {
 
         {open && (
           <div className="lg:hidden glass-card mt-2 mx-4 rounded-lg p-4 animate-fade-in">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block py-3 text-foreground/70 hover:text-primary transition-colors border-b border-border/30 last:border-0"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="pt-4">{account(true)}</div>
+            <div>{account(true)}</div>
           </div>
         )}
       </nav>
